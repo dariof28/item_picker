@@ -1,8 +1,7 @@
 name: item_picker
 description: Item picker widgets package
 version: 0.0.1
-author:
-homepage:
+repository: https://github.com/dariof28/item_picker
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
