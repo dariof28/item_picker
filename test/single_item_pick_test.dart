@@ -305,7 +305,7 @@ main() {
 
   testWidgets(
     'Style is applied',
-        (WidgetTester tester) async {
+    (WidgetTester tester) async {
       List<MapEntry<String, int>> _entries = [
         MapEntry("one", 1),
         MapEntry("two", 2),
@@ -331,17 +331,17 @@ main() {
       );
 
       WidgetPredicate predicate1 = (Widget widget) =>
-      widget is SwitchItem &&
+          widget is SwitchItem &&
           widget.label == "one" &&
           widget.labelStyle == _styles[0];
 
       WidgetPredicate predicate2 = (Widget widget) =>
-      widget is SwitchItem &&
+          widget is SwitchItem &&
           widget.label == "two" &&
           widget.labelStyle == _styles[1];
 
       WidgetPredicate predicate3 = (Widget widget) =>
-      widget is SwitchItem &&
+          widget is SwitchItem &&
           widget.label == "three" &&
           widget.labelStyle == _styles[2];
 
@@ -353,7 +353,7 @@ main() {
 
   testWidgets(
     'Default style is applied if no style is provided',
-        (WidgetTester tester) async {
+    (WidgetTester tester) async {
       List<MapEntry<String, int>> _entries = [
         MapEntry("one", 1),
         MapEntry("two", 2),
@@ -372,17 +372,17 @@ main() {
       );
 
       WidgetPredicate predicate1 = (Widget widget) =>
-      widget is SwitchItem &&
+          widget is SwitchItem &&
           widget.label == "one" &&
           widget.labelStyle == TextStyles.switchItemLabel();
 
       WidgetPredicate predicate2 = (Widget widget) =>
-      widget is SwitchItem &&
+          widget is SwitchItem &&
           widget.label == "two" &&
           widget.labelStyle == TextStyles.switchItemLabel();
 
       WidgetPredicate predicate3 = (Widget widget) =>
-      widget is SwitchItem &&
+          widget is SwitchItem &&
           widget.label == "three" &&
           widget.labelStyle == TextStyles.switchItemLabel();
 
@@ -394,7 +394,7 @@ main() {
 
   testWidgets(
     'Selected style is applied on selected item',
-        (WidgetTester tester) async {
+    (WidgetTester tester) async {
       List<MapEntry<String, int>> _entries = [
         MapEntry("one", 1),
         MapEntry("two", 2),
@@ -421,17 +421,17 @@ main() {
       );
 
       WidgetPredicate predicate1 = (Widget widget) =>
-      widget is SwitchItem &&
+          widget is SwitchItem &&
           widget.label == "one" &&
           widget.labelStyle == _styles[0];
 
       WidgetPredicate predicate2 = (Widget widget) =>
-      widget is Text &&
+          widget is Text &&
           widget.data == "two" &&
           widget.style == TextStyles.selectedSwitchItemLabel(_styles[1].color);
 
       WidgetPredicate predicate3 = (Widget widget) =>
-      widget is SwitchItem &&
+          widget is SwitchItem &&
           widget.label == "three" &&
           widget.labelStyle == _styles[2];
 
