@@ -50,7 +50,7 @@ class MultipleItemPicker<T> extends StatefulWidget {
     this.resetOption,
     this.itemStyles,
     this.resetOptionStyle,
-    this.defaultValues,
+    defaultValues,
     this.selectedMarker,
     separator,
     @required this.onItemSelect,
@@ -67,7 +67,8 @@ class MultipleItemPicker<T> extends StatefulWidget {
         resetOption == null || onResetSelection != null,
         "You must specify an onResetSelection callback if you add a resetOption",
         ),
-        separator = separator ?? Container();
+        separator = separator ?? Container(),
+        defaultValues = defaultValues ?? [];
 
   @override
   _MultipleItemPickerState<T> createState() => _MultipleItemPickerState<T>();
@@ -140,7 +141,7 @@ class _MultipleItemPickerState<T> extends State<MultipleItemPicker<T>> {
           },
           child: SwitchItem(
             label: widget.resetOption.key,
-            labelStyle: widget.itemStyles != null
+            labelStyle: widget.resetOptionStyle != null
                 ? widget.resetOptionStyle
                 : TextStyles.switchItemLabel(),
             isSelected: selectedValues.length == 0,
