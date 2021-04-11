@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'switch_item.dart';
 import 'styles.dart';
+import 'switch_item.dart';
 
 /// This widget render as many list entries as many [list] map entries you provide.
 /// More than one item can be selected.
@@ -60,12 +60,12 @@ class MultipleItemPicker<T> extends StatefulWidget {
         assert(onItemSelect != null),
         assert(onItemUnSelect != null),
         assert(
-        itemStyles == null || itemStyles.length == list.length,
-        "itemStyles should have as many entries as list",
+          itemStyles == null || itemStyles.length == list.length,
+          "itemStyles should have as many entries as list",
         ),
         assert(
-        resetOption == null || onResetSelection != null,
-        "You must specify an onResetSelection callback if you add a resetOption",
+          resetOption == null || onResetSelection != null,
+          "You must specify an onResetSelection callback if you add a resetOption",
         ),
         separator = separator ?? Container(),
         defaultValues = defaultValues ?? [];
