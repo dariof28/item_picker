@@ -29,10 +29,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int selectedValue = 1;
   List<TextStyle> styles;
   Widget marker;
   Widget separator;
+  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +42,24 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: EdgeInsets.all(16.0),
         child: _buildContent(),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: "Single item",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.format_list_numbered),
+            label: "Multiple item",
+          ),
+        ],
+        currentIndex: pageIndex,
+        onTap: (index) {
+          setState(() {
+            pageIndex = index;
+          });
+        },
+      ),
     );
   }
 
@@ -49,33 +67,17 @@ class _MyHomePageState extends State<MyHomePage> {
     return Column(
       children: [
         Expanded(
-          child: ItemPicker<int>(
-            list: [
-              MapEntry("One", 1),
-              MapEntry("Two", 2),
-              MapEntry("Three", 3),
-              MapEntry("Four", 4),
-              MapEntry("Five", 5),
-            ],
-            defaultValue: selectedValue,
-            itemStyles: styles,
-            selectedMarker: marker,
-            separator: separator,
-            onSelectionChange: (value) {
-              setState(() {
-                selectedValue = value;
-              });
-            },
-          ),
-        ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List<Widget>.generate(
-              selectedValue,
-              (index) => Icon(Icons.person),
-            ),
-          ),
+          child: pageIndex == 0
+              ? SingleItem(
+                  separator: separator,
+                  marker: marker,
+                  styles: styles,
+                )
+              : MultipleItem(
+                  separator: separator,
+                  marker: marker,
+                  styles: styles,
+                ),
         ),
         _buildSettings(),
       ],
@@ -95,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _styleSetting() {
     return Row(
       children: [
-        FlatButton(
+        TextButton(
           onPressed: () {
             setState(() {
               styles = [
@@ -103,14 +105,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 TextStyle(color: Colors.blue),
                 TextStyle(color: Colors.red),
                 TextStyle(color: Colors.yellow),
-                TextStyle(color: Colors.black),
+                TextStyle(color: Colors.deepOrange),
               ];
             });
           },
           child: Text('Custom style'),
         ),
         Expanded(
-          child: FlatButton(
+          child: TextButton(
             onPressed: () {
               setState(() {
                 styles = null;
@@ -126,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _markerSetting() {
     return Row(
       children: [
-        FlatButton(
+        TextButton(
           onPressed: () {
             setState(() {
               marker = Icon(Icons.star, color: Colors.deepOrange);
@@ -135,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Text('Custom marker'),
         ),
         Expanded(
-          child: FlatButton(
+          child: TextButton(
             onPressed: () {
               setState(() {
                 marker = null;
@@ -151,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _separatorSetting() {
     return Row(
       children: [
-        FlatButton(
+        TextButton(
           onPressed: () {
             setState(() {
               separator = Column(
@@ -166,13 +168,122 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Text('Custom separator'),
         ),
         Expanded(
-          child: FlatButton(
+          child: TextButton(
             onPressed: () {
               setState(() {
                 separator = null;
               });
             },
             child: Text('Default separator'),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SingleItem extends StatefulWidget {
+  final List<TextStyle> styles;
+  final Widget marker;
+  final Widget separator;
+
+  SingleItem({this.styles, this.marker, this.separator});
+
+  @override
+  _SingleItemState createState() => _SingleItemState();
+}
+
+class _SingleItemState extends State<SingleItem> {
+  int selectedValue = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        ItemPicker<int>(
+          list: [
+            MapEntry("One", 1),
+            MapEntry("Two", 2),
+            MapEntry("Three", 3),
+            MapEntry("Four", 4),
+            MapEntry("Five", 5),
+          ],
+          defaultValue: selectedValue,
+          itemStyles: widget.styles,
+          selectedMarker: widget.marker,
+          separator: widget.separator,
+          onSelectionChange: (value) {
+            setState(() {
+              selectedValue = value;
+            });
+          },
+        ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List<Widget>.generate(
+              selectedValue,
+              (index) => Icon(Icons.person),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class MultipleItem extends StatefulWidget {
+  final List<TextStyle> styles;
+  final Widget marker;
+  final Widget separator;
+
+  MultipleItem({this.styles, this.marker, this.separator});
+
+  @override
+  _MultipleItemState createState() => _MultipleItemState();
+}
+
+class _MultipleItemState extends State<MultipleItem> {
+  List<String> _selectedValues = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        MultipleItemPicker<String>(
+          list: [
+            MapEntry("Dog", "dog"),
+            MapEntry("Cat", "cat"),
+            MapEntry("Bird", "bird"),
+            MapEntry("Hamster", "hamster"),
+            MapEntry("Goldfish", "goldfish"),
+          ],
+          itemStyles: widget.styles,
+          selectedMarker: widget.marker,
+          separator: widget.separator,
+          onItemSelect: (value) {
+            setState(() {
+              _selectedValues.add(value);
+            });
+          },
+          onItemUnSelect: (value) {
+            setState(() {
+              _selectedValues.remove(value);
+            });
+          },
+          resetOption: MapEntry("Reset selection", null),
+          onResetSelection: () {
+            setState(() {
+              _selectedValues.clear();
+            });
+          },
+        ),
+        Expanded(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Selection: " + _selectedValues.toString()),
+            ],
           ),
         ),
       ],
