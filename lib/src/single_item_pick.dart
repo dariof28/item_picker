@@ -13,32 +13,30 @@ class ItemPicker<T> extends StatefulWidget {
   ///A callback [onSelectionChange] to handle the new selected value.
   final ValueChanged<T> onSelectionChange;
 
-  final ScrollPhysics physics;
+  final ScrollPhysics? physics;
 
   /// The styles for each entry. This list should match one to one with the [list] items.
-  final List<TextStyle> itemStyles;
+  final List<TextStyle>? itemStyles;
 
   /// This is the default selected value
-  final T defaultValue;
+  final T? defaultValue;
 
   /// You can provide a custom marker to mark an entry as selected.
   /// By default the entry is marked with a [Icons.check]
-  final Widget selectedMarker;
+  final Widget? selectedMarker;
 
   /// Separator for each entry of the list.
   final Widget separator;
 
   ItemPicker({
-    @required this.list,
-    @required this.onSelectionChange,
+    required this.list,
+    required this.onSelectionChange,
     this.physics,
     this.itemStyles,
     this.defaultValue,
     this.selectedMarker,
-    Widget separator,
-  })  : assert(list != null),
-        assert(onSelectionChange != null),
-        assert(
+    Widget? separator,
+  })  : assert(
           itemStyles == null || itemStyles.length == list.length,
           "itemStyles should have as many entries as list",
         ),
@@ -49,7 +47,7 @@ class ItemPicker<T> extends StatefulWidget {
 }
 
 class _ItemPickerState<T> extends State<ItemPicker<T>> {
-  T selectedValue;
+  T? selectedValue;
 
   @override
   void initState() {
@@ -94,6 +92,6 @@ class _ItemPickerState<T> extends State<ItemPicker<T>> {
       return TextStyles.switchItemLabel();
     }
 
-    return widget.itemStyles.elementAt(index);
+    return widget.itemStyles!.elementAt(index);
   }
 }
