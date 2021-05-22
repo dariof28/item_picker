@@ -8,16 +8,14 @@ class SwitchItem extends StatelessWidget {
   final String label;
   final TextStyle labelStyle;
   final bool isSelected;
-  final Widget selectedMarker;
+  final Widget? selectedMarker;
 
   SwitchItem({
-    @required this.label,
+    required this.label,
     this.isSelected = false,
-    this.labelStyle,
+    required this.labelStyle,
     this.selectedMarker,
-  })  : assert(label != null),
-        assert(labelStyle != null),
-        assert(isSelected != null);
+  });
 
   @override
   Widget build(BuildContext context) {

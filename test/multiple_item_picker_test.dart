@@ -94,7 +94,7 @@ main() {
   testWidgets(
     'Render reset option',
     (WidgetTester tester) async {
-      final widget = MultipleItemPicker<int>(
+      final widget = MultipleItemPicker<int?>(
         list: [],
         onItemSelect: (_) {},
         onItemUnSelect: (_) {},
@@ -118,7 +118,7 @@ main() {
   testWidgets('OnReset callback should be provided if resetOption is provided',
       (WidgetTester tester) async {
     expect(
-      () => MultipleItemPicker<int>(
+      () => MultipleItemPicker<int?>(
         list: [],
         onItemSelect: (_) {},
         onItemUnSelect: (_) {},
@@ -174,7 +174,7 @@ main() {
         MapEntry("three", 3),
       ];
 
-      final widget = MultipleItemPicker<int>(
+      final widget = MultipleItemPicker<int?>(
         list: _entries,
         onItemSelect: (_) {},
         onItemUnSelect: (_) {},
@@ -343,7 +343,7 @@ main() {
   testWidgets(
     'Tap on reset option executes onReset callback',
     (WidgetTester tester) async {
-      final widget = MultipleItemPicker<int>(
+      final widget = MultipleItemPicker<int?>(
         list: [],
         resetOption: MapEntry("reset", null),
         onResetSelection: () => print('reset'),
@@ -504,7 +504,7 @@ main() {
         MapEntry("three", 3),
       ];
 
-      final widget = MultipleItemPicker<int>(
+      final widget = MultipleItemPicker<int?>(
         list: _entries,
         onItemSelect: (_) {},
         onItemUnSelect: (_) {},
@@ -569,7 +569,7 @@ main() {
 
       TextStyle _resetStyle = TextStyle(color: Colors.orange);
 
-      final widget = MultipleItemPicker<int>(
+      final widget = MultipleItemPicker<int?>(
         list: _entries,
         onItemSelect: (_) {},
         onItemUnSelect: (_) {},
@@ -621,7 +621,7 @@ main() {
         MapEntry("three", 3),
       ];
 
-      final widget = MultipleItemPicker<int>(
+      final widget = MultipleItemPicker<int?>(
         list: _entries,
         onItemSelect: (_) {},
         onItemUnSelect: (_) {},
@@ -717,7 +717,7 @@ main() {
     (WidgetTester tester) async {
       TextStyle _resetStyle = TextStyle(color: Colors.orange);
 
-      final widget = MultipleItemPicker<int>(
+      final widget = MultipleItemPicker<int?>(
         list: [],
         onItemSelect: (_) {},
         onItemUnSelect: (_) {},

@@ -6,7 +6,7 @@ import 'switch_item.dart';
 /// This widget render as many list entries as many [list] map entries you provide.
 /// More than one item can be selected.
 class MultipleItemPicker<T> extends StatefulWidget {
-  final ScrollPhysics physics;
+  final ScrollPhysics? physics;
 
   /// Define the key value for each item. The key will be used as item label
   /// while the value will be inserted in the [selectedValues] on the state when selected
@@ -15,20 +15,20 @@ class MultipleItemPicker<T> extends StatefulWidget {
 
   /// The entry to be used to reset the selection. This entry will be rendered on top on the list.
   /// Once pressed it will clear the current selection
-  final MapEntry<String, T> resetOption;
+  final MapEntry<String, T>? resetOption;
 
   /// The styles for each entry. This list should match one to one with the [list] items.
-  final List<TextStyle> itemStyles;
+  final List<TextStyle>? itemStyles;
 
   /// The style for the reset option entry
-  final TextStyle resetOptionStyle;
+  final TextStyle? resetOptionStyle;
 
   /// The options to be selected by default
   final List<T> defaultValues;
 
   /// You can provide a custom marker to mark an entry as selected.
   /// By default the entry is marked with a [Icons.check]
-  final Widget selectedMarker;
+  final Widget? selectedMarker;
 
   /// Separator for each entry of the list.
   final Widget separator;
@@ -37,7 +37,7 @@ class MultipleItemPicker<T> extends StatefulWidget {
 
   final ValueChanged<T> onItemUnSelect;
 
-  final VoidCallback onResetSelection;
+  final VoidCallback? onResetSelection;
 
   /// You can provide a custom marker to mark an entry as selected.
   /// By default the entry is marked with a [Icons.check]
@@ -46,20 +46,17 @@ class MultipleItemPicker<T> extends StatefulWidget {
   /// Callback to handle the selection reset
   MultipleItemPicker({
     this.physics,
-    @required this.list,
+    required this.list,
     this.resetOption,
     this.itemStyles,
     this.resetOptionStyle,
     defaultValues,
     this.selectedMarker,
     separator,
-    @required this.onItemSelect,
-    @required this.onItemUnSelect,
+    required this.onItemSelect,
+    required this.onItemUnSelect,
     this.onResetSelection,
-  })  : assert(list != null),
-        assert(onItemSelect != null),
-        assert(onItemUnSelect != null),
-        assert(
+  })  : assert(
           itemStyles == null || itemStyles.length == list.length,
           "itemStyles should have as many entries as list",
         ),
@@ -111,7 +108,7 @@ class _MultipleItemPickerState<T> extends State<MultipleItemPicker<T>> {
               child: SwitchItem(
                 label: item.key,
                 labelStyle: widget.itemStyles != null
-                    ? widget.itemStyles[index]
+                    ? widget.itemStyles![index]
                     : TextStyles.switchItemLabel(),
                 isSelected: selectedValues.contains(item.value),
                 selectedMarker: widget.selectedMarker,
@@ -136,13 +133,13 @@ class _MultipleItemPickerState<T> extends State<MultipleItemPicker<T>> {
           onTap: () {
             setState(() {
               selectedValues.clear();
-              widget.onResetSelection();
+              widget.onResetSelection!();
             });
           },
           child: SwitchItem(
-            label: widget.resetOption.key,
+            label: widget.resetOption!.key,
             labelStyle: widget.resetOptionStyle != null
-                ? widget.resetOptionStyle
+                ? widget.resetOptionStyle!
                 : TextStyles.switchItemLabel(),
             isSelected: selectedValues.length == 0,
             selectedMarker: widget.selectedMarker,

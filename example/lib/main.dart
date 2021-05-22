@@ -20,24 +20,24 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, this.title}) : super(key: key);
 
-  final String title;
+  final String? title;
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<TextStyle> styles;
-  Widget marker;
-  Widget separator;
+  List<TextStyle>? styles;
+  Widget? marker;
+  Widget? separator;
   int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
+      appBar: AppBar(title: Text(widget.title!)),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: _buildContent(),
@@ -183,9 +183,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class SingleItem extends StatefulWidget {
-  final List<TextStyle> styles;
-  final Widget marker;
-  final Widget separator;
+  final List<TextStyle>? styles;
+  final Widget? marker;
+  final Widget? separator;
 
   SingleItem({this.styles, this.marker, this.separator});
 
@@ -233,9 +233,9 @@ class _SingleItemState extends State<SingleItem> {
 }
 
 class MultipleItem extends StatefulWidget {
-  final List<TextStyle> styles;
-  final Widget marker;
-  final Widget separator;
+  final List<TextStyle>? styles;
+  final Widget? marker;
+  final Widget? separator;
 
   MultipleItem({this.styles, this.marker, this.separator});
 
@@ -244,13 +244,13 @@ class MultipleItem extends StatefulWidget {
 }
 
 class _MultipleItemState extends State<MultipleItem> {
-  List<String> _selectedValues = [];
+  List<String?> _selectedValues = [];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        MultipleItemPicker<String>(
+        MultipleItemPicker<String?>(
           list: [
             MapEntry("Dog", "dog"),
             MapEntry("Cat", "cat"),
